@@ -1,20 +1,31 @@
 import os
 import gtts
+import pyttsx3
 from pathlib import Path
 import pdfplumber
 from playsound import playsound
 
-# text = "Юзабилити — это показатель того, насколько легко и удобно пользователю взаимодействовать с интерфейсом сайта."
-# tts = gtts.gTTS(text=text, lang='ru')  # меняем язык на тот, который хотим услышать
-# tts.save("welcome.mp3")   # сохранили файл
-# playsound("welcome.mp3")  # если хотим сразу прослушать файл
-# os.remove('welcome.mp3')  # если не хотим сохранять файл
+
+# Устанавливаем библиотеки
+# pip install gtts pyttsx3 pdfplumber playsound
+
+# gtts этой библиотеки нужен интернет
+# text = input('Введите любой текст: ')
+# tts = gtts.gTTS(text, lang='ru')
+# tts.save('hello.mp3') # просто сохранили
+# playsound('hello.mp3') # если хотим сразу послушать файл
+# os.remove('hello.mp3') # если не хотим сохранять файл
+#
+# # pyttsx3 этой библиотеке интернет не нужен
+# engine = pyttsx3.init()
+# engine.setProperty('rate', 180)
+# engine.setProperty('volume', 0.9)
+# engine.say(text)
+# engine.runAndWait()
 
 
 def pdf_to_mp3(file_path='text.pdf', language='ru'):
     if Path(file_path).is_file() and Path(file_path).suffix == '.pdf':
-        print(f'{Path(file_path).name}')
-
         with pdfplumber.PDF(open(file=file_path, mode='rb')) as pdf:
             pages = [page.extract_text() for page in pdf.pages]
 
@@ -28,7 +39,6 @@ def pdf_to_mp3(file_path='text.pdf', language='ru'):
 
 
 def main():
-    print('PDF >> to >> MP3')
     file_path = input('Введите путь к файлу: ')
     # /Users/kovalevigor/PycharmProjects/text_in_mp3/test.pdf
     language = input('Введите язык ru или en: ')
@@ -37,3 +47,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
